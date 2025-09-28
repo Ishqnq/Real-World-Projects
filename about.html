@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanMitra - About</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CSS CDN (tested working) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: url('pexels-jplenio-1423600.jpg') center/cover no-repeat fixed;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Overlay for readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        /* Header/navbar */
+        header {
+            background-color: #006400;
+            color: #f5e6cc;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav a {
+            margin-left: 1.5rem;
+            font-weight: 500;
+            color: #f5e6cc;
+        }
+
+        header nav a:hover {
+            color: #ffd699;
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #006400;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        /* Social media icons */
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social a {
+            text-decoration: none;
+            font-size: 2rem;
+            color: #006400;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .social a:hover {
+            transform: scale(1.2);
+            color: #ffcc66;
+        }
+
+        @media(max-width:768px) {
+            .container {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">VanMitra</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="signin.html">Sign In</a>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <div class="container">
+        <h1>Our Mission</h1>
+        <p>
+            At VanMitra, our mission is to empower communities and authorities with advanced AI-powered tools for
+            monitoring the Forest Rights Act (FRA) implementation. We aim to create transparency, support
+            decision-making, and enhance sustainable forest governance across Madhya Pradesh, Tripura, Odisha, and
+            Telangana. Our platform integrates geospatial mapping, decision support systems, and claim tracking to
+            provide a holistic overview of forest rights and assets.
+        </p>
+
+        <h2 style="text-align:center; margin-bottom:1rem;">Connect With Us</h2>
+        <div class="social">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+
+</body>
+
+</html>

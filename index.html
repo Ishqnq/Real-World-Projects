@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanMitra</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: url('pexels-jplenio-1423600.jpg') center/cover no-repeat fixed;
+            color: white;
+        }
+
+        /* Overlay for readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* Header/navbar */
+        header {
+            background-color: #006400;
+            color: #f5e6cc;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header nav a {
+            margin-left: 1.5rem;
+            font-weight: 500;
+            color: #f5e6cc;
+            text-decoration: none;
+        }
+
+        header nav a:hover {
+            color: #ffd699;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #f5e6cc;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Button */
+        #videoBtn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #006400;
+            color: #f5e6cc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #videoBtn:hover {
+            background-color: #004d00;
+        }
+
+        /* Info cards section */
+        .info-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: nowrap;
+            /* keep in one line */
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #006400;
+            padding: 1.5rem;
+            border-radius: 10px;
+            flex: 0 0 20%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 180px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* smooth transition */
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            /* slight lift */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            /* stronger shadow */
+        }
+
+
+        .card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+        }
+
+        /* Video Modal */
+        #videoModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #videoModal .modal-content {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #closeModal {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Contact panel */
+        footer {
+            background-color: #004d00;
+            color: #f5e6cc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        footer div {
+            margin: 0.5rem 0;
+        }
+
+        @media(max-width:768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .info-cards {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .card {
+                flex: 1 1 80%;
+                margin-bottom: 1rem;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            footer div {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">VanMitra</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="signin.html">Sign In</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>VanMitra</h1>
+        <p>AI-powered FRA Atlas and Decision Support System for Forest Rights Monitoring</p>
+        <button id="videoBtn">How does this work?</button>
+    </div>
+
+    <!-- Info Cards Section -->
+    <div class="info-cards">
+        <div class="card">
+            <h3>FRA Atlas</h3>
+            <p>Explore forest rights mapping and assets.</p>
+        </div>
+        <div class="card">
+            <h3>DSS Dashboard</h3>
+            <p>Analyze and visualize FRA data.</p>
+        </div>
+        <div class="card">
+            <h3>Asset Mapping</h3>
+            <p>Track forest resources efficiently.</p>
+        </div>
+        <div class="card">
+            <h3>Claim Status Tracking</h3>
+            <p>Monitor the progress of FRA claims.</p>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal">
+        <div class="modal-content">
+            <span id="closeModal">&times;</span>
+            <video id="tutorialVideo" width="100%" controls>
+                <source src="about us .mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Contact Panel -->
+    <footer>
+        <div>
+            <strong>Address:</strong> 123 Forest Lane, City, State
+        </div>
+        <div>
+            <strong>Email:</strong> contact@vanmitra.org | <strong>Phone:</strong> +91 12345 67890
+        </div>
+        <div>
+            <!-- Right side blank, can add social icons later -->
+        </div>
+    </footer>
+
+    <!-- JS for modal -->
+    <script>
+        const videoBtn = document.getElementById('videoBtn');
+        const videoModal = document.getElementById('videoModal');
+        const closeModal = document.getElementById('closeModal');
+        const tutorialVideo = document.getElementById('tutorialVideo');
+
+        videoBtn.onclick = () => {
+            videoModal.style.display = 'flex';
+            tutorialVideo.play();
+        }
+
+        closeModal.onclick = () => {
+            videoModal.style.display = 'none';
+            tutorialVideo.pause();
+            tutorialVideo.currentTime = 0;
+        }
+
+        window.onclick = (e) => {
+            if (e.target === videoModal) {
+                videoModal.style.display = 'none';
+                tutorialVideo.pause();
+                tutorialVideo.currentTime = 0;
+            }
+        }
+    </script>
+    <!-- Floating Chatbot -->
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VanMitra Chatbot</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+            }
+
+            /* Chat container */
+            .chat-container {
+                width: 360px;
+                height: 500px;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+                cursor: grab;
+                transition: all 0.3s ease;
+            }
+
+            .chat-container:active {
+                cursor: grabbing;
+            }
+
+            .chat-header {
+                background: #007b5e;
+                color: white;
+                padding: 10px;
+                font-weight: bold;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .chat-header button {
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .chat-box {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+                border-top: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .chat-message {
+                margin: 8px 0;
+                padding: 8px;
+                border-radius: 6px;
+                max-width: 80%;
+                white-space: pre-line;
+            }
+
+            .user {
+                background: #007b5e;
+                color: #fff;
+                margin-left: auto;
+            }
+
+            .bot {
+                background: #eaeaea;
+                color: #333;
+                margin-right: auto;
+            }
+
+            .question-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin-top: 5px;
+            }
+
+            .question-buttons button {
+                background: #f0f0f0;
+                border: 1px solid #ccc;
+                padding: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: left;
+            }
+
+            .question-buttons button:hover {
+                background: #e0e0e0;
+            }
+
+            .input-box {
+                display: flex;
+            }
+
+            .input-box input {
+                flex: 1;
+                padding: 8px;
+                border: none;
+                outline: none;
+            }
+
+            .input-box button {
+                padding: 8px;
+                background: #007b5e;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .input-box button:hover {
+                background: #005a44;
+            }
+
+            /* Collapsed mode */
+            .collapsed {
+                width: 180px;
+                height: 40px;
+                border-radius: 20px;
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .collapsed .chat-box,
+            .collapsed .input-box,
+            .collapsed .question-buttons {
+                display: none !important;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Chatbot -->
+        <div class="chat-container" id="chat-container">
+            <div class="chat-header" id="chat-header">
+                🌿 VanMitra Chatbot
+                <button id="toggle-chat">_</button>
+            </div>
+            <div class="chat-box" id="chat-box">
+                <div class="question-buttons" id="question-buttons">
+                    <button onclick="answerQuestion('what is vanmitra')">What is VanMitra?</button>
+                    <button onclick="answerQuestion('what is fra atlas')">What is FRA Atlas?</button>
+                    <button onclick="answerQuestion('what is dss dashboard')">What is DSS Dashboard?</button>
+                    <button onclick="answerQuestion('what is asset mapping')">What is Asset Mapping?</button>
+                    <button onclick="answerQuestion('what is claim status tracking')">What is Claim Status
+                        Tracking?</button>
+                    <button onclick="answerQuestion('what is fra')">What is FRA?</button>
+                </div>
+            </div>
+            <div class="input-box">
+                <input type="text" id="user-input" placeholder="Or type your question...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <script>
+            const responses = {
+                "what is vanmitra": "VanMitra is our AI-powered system to monitor Forest Rights Act (FRA) implementation.\nStep 1️⃣: It integrates mapping and tracking tools.\nStep 2️⃣: Provides data for decision support.\nStep 3️⃣: Helps communities and administrators with transparency.",
+                "what is fra atlas": "The FRA Atlas is a digital map of forest rights.\nStep 1️⃣: Visualizes areas where rights have been recognized.\nStep 2️⃣: Shows claims, titles, and distribution.\nStep 3️⃣: Provides a state-level overview (Madhya Pradesh, Tripura, Odisha, Telangana).",
+                "what is dss dashboard": "The DSS Dashboard is an analytical tool.\nStep 1️⃣: Collects and integrates FRA data.\nStep 2️⃣: Provides insights for monitoring and policy.\nStep 3️⃣: Helps compare implementation across regions.",
+                "what is asset mapping": "Asset Mapping lets users see resources and community assets linked to FRA.\nStep 1️⃣: Displays land, forest produce, and facilities.\nStep 2️⃣: Integrates with real-time maps.\nStep 3️⃣: Supports planning for sustainable use.",
+                "what is claim status tracking": "Claim Status Tracking monitors FRA claim progress.\nStep 1️⃣: Enter your claim ID.\nStep 2️⃣: Check pending, approved, or rejected status.\nStep 3️⃣: Provides transparency to applicants.",
+                "what is fra": "The Forest Rights Act (FRA), 2006 recognizes rights of forest-dwelling communities.\nStep 1️⃣: Grants individual and community rights.\nStep 2️⃣: Protects traditional forest dwellers.\nStep 3️⃣: Aims to balance conservation and livelihoods."
+            };
+
+            // Send typed message
+            function sendMessage() {
+                const inputBox = document.getElementById("user-input");
+                const chatBox = document.getElementById("chat-box");
+                const userText = inputBox.value.trim().toLowerCase();
+                if (!userText) return;
+
+                addMessage(inputBox.value, 'user');
+                if (responses[userText]) {
+                    addMessage(responses[userText], 'bot');
+                } else {
+                    addMessage("Sorry 🌱, I only know about FRA Atlas, DSS Dashboard, Asset Mapping, Claim Tracking, and VanMitra basics.", 'bot');
+                }
+                inputBox.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            // Clickable question
+            function answerQuestion(key) {
+                addMessage(key.replace(/_/g, ' '), 'user');
+                addMessage(responses[key], 'bot');
+                document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+            }
+
+            // Add chat message
+            function addMessage(text, sender) {
+                const chatBox = document.getElementById("chat-box");
+                const msg = document.createElement("div");
+                msg.className = 'chat-message ' + sender;
+                msg.innerText = text;
+                chatBox.appendChild(msg);
+            }
+
+            // Toggle expand / collapse
+            const toggleButton = document.getElementById('toggle-chat');
+            const chatContainer = document.getElementById('chat-container');
+
+            toggleButton.addEventListener('click', () => {
+                if (chatContainer.classList.contains('collapsed')) {
+                    chatContainer.classList.remove('collapsed');
+                } else {
+                    chatContainer.classList.add('collapsed');
+                }
+            });
+
+            // Draggable
+            let offsetX, offsetY, isDown = false;
+            const chatHeader = document.getElementById('chat-header');
+
+            chatHeader.addEventListener('mousedown', e => {
+                isDown = true;
+                offsetX = e.clientX - chatContainer.offsetLeft;
+                offsetY = e.clientY - chatContainer.offsetTop;
+            });
+
+            document.addEventListener('mouseup', () => { isDown = false; });
+
+            document.addEventListener('mousemove', e => {
+                if (!isDown) return;
+                chatContainer.style.left = (e.clientX - offsetX) + "px";
+                chatContainer.style.top = (e.clientY - offsetY) + "px";
+                chatContainer.style.right = "auto";
+                chatContainer.style.bottom = "auto";
+                chatContainer.style.position = "fixed";
+            });
+        </script>
+
+    </body>
+
+    </html>
+
+
+</body>
+
+</html>
+
+</body>
+
+</html>
+
+
+</body>
+
+</html>
